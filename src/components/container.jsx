@@ -47,14 +47,14 @@ const Container = () => {
   //   console.log("i am called");
   //   return () => observer.disconnect();
   // }, [lastElementRef, handleObserver]);
-  const fetchMoreData = async () => {
-    const newData = await fetchData(currentPage, limit, setLoading);
-    setItems((prevItems) => [...prevItems, ...newData]);
-    // setCurrentPage((prevPage) => prevPage + 1);
-  };
-  useEffect(() => {
-    fetchMoreData();
-  }, [currentPage]);
+  // const fetchMoreData = async () => {
+  //   const newData = await fetchData(currentPage, limit, setLoading);
+  //   setItems((prevItems) => [...prevItems, ...newData]);
+  //   // setCurrentPage((prevPage) => prevPage + 1);
+  // };
+  // useEffect(() => {
+  //   fetchMoreData();
+  // }, [currentPage]);
   useEffect(() => {
     // Function to fetch data based on the page number
 
