@@ -27,6 +27,13 @@ const Container = () => {
       setItems((prev) => [...prev, ...res]);
     });
   }, [currentPage]);
+  // useEffect(() => {
+  //   fetchData().then((res) => {
+  //     console.log(res);
+  //     setItems(res);
+  //   });
+  // }, []);the commented code is for pagination
+
   // const items_per_page = 2;
   // const totalPageCount = Math.ceil(items.length / items_per_page);
   // const startingIndex = (currentPage - 1) * items_per_page;
@@ -47,13 +54,6 @@ const Container = () => {
         {items.map((ele, index) => {
           const { price, thumbnail, description, title } = ele;
           return (
-            // <Card
-            //   lastElementRef={items.length === index + 1 ? lastElementRef : null}
-            //   price={price}
-            //   image={thumbnail}
-            //   description={description}
-            //   title={title}
-            // />
             <div
               ref={items.length === index + 1 ? lastElementRef : null}
               className="cardClass"
