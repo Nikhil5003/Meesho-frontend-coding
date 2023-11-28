@@ -13,15 +13,15 @@ const Container = () => {
   const limit = 10;
   const lastElementRef = useRef(null);
   console.log(lastElementRef);
-  const handleObserver = useCallback(
-    ([entry]) => {
-      const { isIntersecting } = entry;
-      if (isIntersecting && !loading) {
-        setCurrentPage(currentPage === limit ? currentPage : currentPage + 1);
-      }
-    },
-    [loading]
-  );
+  // const handleObserver = useCallback(
+  //   ([entry]) => {
+  //     const { isIntersecting } = entry;
+  //     if (isIntersecting && !loading) {
+  //       setCurrentPage(currentPage === limit ? currentPage : currentPage + 1);
+  //     }
+  //   },
+  //   [loading]
+  // );
   useEffect(() => {
     fetchData(currentPage, limit, setLoading).then((res) => {
       setItems((prev) => [...prev, ...res]);
@@ -39,14 +39,48 @@ const Container = () => {
   // const startingIndex = (currentPage - 1) * items_per_page;
   // const endingIndex = currentPage * items_per_page;
   // const data = items.slice(startingIndex, endingIndex);
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(handleObserver);
+  //   if (lastElementRef && lastElementRef.current) {
+  //     observer.observe(lastElementRef.current);
+  //   }
+  //   console.log("i am called");
+  //   return () => observer.disconnect();
+  // }, [lastElementRef, handleObserver]);
+  const fetchMoreData = async () => {
+    const newData = await fetchData(currentPage, limit, setLoading);
+    setItems((prevItems) => [...prevItems, ...newData]);
+    // setCurrentPage((prevPage) => prevPage + 1);
+  };
   useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver);
-    if (lastElementRef && lastElementRef.current) {
-      observer.observe(lastElementRef.current);
-    }
-    console.log("i am called");
-    return () => observer.disconnect();
-  }, [lastElementRef, handleObserver]);
+    fetchMoreData();
+  }, [currentPage]);
+  useEffect(() => {
+    // Function to fetch data based on the page number
+
+    // Event listener for scrolling
+    const handleScroll = () => {
+      console.log(
+        document.documentElement.scrollHeight,
+        window.scrollY,
+        window.innerHeight
+      );
+      if (
+        window.scrollY + window.innerHeight >=
+          document.documentElement.scrollHeight &&
+        !loading
+      ) {
+        console.log(currentPage);
+        setCurrentPage((prev) => prev + 1);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading]);
 
   return (
     <>
