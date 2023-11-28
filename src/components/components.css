@@ -1,11 +1,42 @@
 .cardClass{
-    width:400px;
+    width:300px;
     background-color: aqua;
     margin: 20px;
+    box-shadow: 2px 2px white;
 }
 
 .cardClass > img{
     width:100%;
-    height:100%;
+    height:200px;
     object-fit: contain;
 }
+.wrapperClass{
+    height: 200px;
+    width: 200px;
+    position: relative;
+    margin-top: 20px;
+    margin-inline: auto;
+
+}
+.loading-icon {
+    color: teal;
+    font-size: 50rem;
+    animation: animate 2s infinite;
+  }
+  
+  @keyframes animate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(720deg);
+    }
+  }
+  .description{
+    font-size: 15px;
+    width: 298px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* text-overflow:ellipsis; */
+  }
