@@ -7,7 +7,7 @@ const fetchData = async (skip, limit, setLoading) => {
     const response = await fetch(api_url);
     let data = await response.json();
     console.log(data);
-    setLoading(false);
+
     let { products = [] } = data || {};
     products = products.map(({ title, price, description, thumbnail }) => {
       return {
@@ -17,6 +17,7 @@ const fetchData = async (skip, limit, setLoading) => {
         thumbnail,
       };
     });
+    setLoading(false);
     return products;
   } catch (err) {
     console.log(err, "error");
